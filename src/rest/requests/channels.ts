@@ -5,18 +5,19 @@ import { AxiosResponse } from 'axios'
 import { Message } from '@/types/message.js'
 
 interface ChannelFetch {
-    channelId: string,
-    limit?: IntRange<1, 101>
-    before?: string
+  channelId: string,
+  limit?: IntRange<1, 101>
+  before?: string
 }
 
 export class Channels {
   client: Discord
+
   constructor(client: Discord) {
     this.client = client
   }
 
-  async fetch ({ channelId, limit, before }: ChannelFetch): Promise<AxiosResponse<Message[], unknown>> {
+  async fetch({ channelId, limit, before }: ChannelFetch): Promise<AxiosResponse<Message[], unknown>> {
     const response = await request.get(`channels/${channelId}/messages?limit=${limit}${before ? `&before=${before}` : ''}`, {
       headers: {
         'accept': 'application/json',
